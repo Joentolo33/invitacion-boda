@@ -111,11 +111,8 @@
 
     /* VESTIMENTA Y REGALOS */
     .dress { background:var(--cream); }
-    .dress-art { display:flex; justify-content:center; align-items:center; gap:15px; max-width:440px; margin:28px auto 22px; }
-    .outfit { display:grid; place-items:center; flex:1; min-width:0; height:125px; border:1px solid #ddc5b3; border-radius:95px 95px 9px 9px; background:#fffaf5; }
-    .outfit svg { width:70px; height:85px; stroke:var(--rust); fill:none; stroke-width:1.6; }
-    .outfit.terra svg { stroke:#ae5c46; }
-    .outfit.gold svg { stroke:#b48b54; }
+    .dress-art { width:100%; max-width:600px; margin:28px auto 22px; }
+    .dress-art img { display:block; width:100%; height:auto; border-radius:10px; box-shadow:0 8px 24px #56372b18; }
     .dress-note { max-width:395px; padding-top:23px; border-top:1px solid var(--rule); }
     .dress-note strong { color:var(--rust); }
 
@@ -127,13 +124,22 @@
     .ticket span { font-size:12px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; }
     .rsvp .btn.light { margin-top:11px; }
 
-    /* GALERÍA */
+    /* CARRUSEL DE FOTOS */
     .gallery { display:none; background:var(--cream); }
     .gallery.has-photos { display:block; }
-    .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:510px; margin:24px auto 0; }
-    .gallery-open { border:0; border-radius:3px; background:#f3e7dd; padding:0; overflow:hidden; }
-    .gallery-open img { width:100%; height:180px; object-fit:cover; transition:transform .3s; }
-    .gallery-open:hover img { transform:scale(1.04); }
+    .carousel { width:min(100%,520px); margin:27px auto 0; }
+    .carousel-stage { position:relative; overflow:hidden; border-radius:16px; background:#eadacf; box-shadow:0 12px 32px #56372b25; aspect-ratio:4/5; }
+    .carousel-open { display:block; width:100%; height:100%; border:0; padding:0; background:transparent; cursor:zoom-in; }
+    .carousel-open img { width:100%; height:100%; object-fit:contain; }
+    .carousel-control { position:absolute; z-index:2; top:50%; transform:translateY(-50%); display:grid; place-items:center; width:42px; height:46px; padding:0; background:#fffdf9ed; border:1px solid #cda98e; border-radius:50%; font:34px/1 Georgia,serif; color:var(--rust); box-shadow:0 2px 12px #56372b30; }
+    .carousel-control:hover { background:white; }
+    .carousel-control.prev { left:10px; }
+    .carousel-control.next { right:10px; }
+    .carousel-footer { padding:14px 0 0; }
+    .carousel-count { margin:0 auto 9px; font-size:12px; color:var(--muted); letter-spacing:.12em; }
+    .carousel-dots { display:flex; justify-content:center; align-items:center; gap:7px; flex-wrap:wrap; padding:0 8px; }
+    .carousel-dot { width:9px; height:9px; border:0; padding:0; border-radius:50%; background:#d8c6b8; transition:background .2s,transform .2s; }
+    .carousel-dot[aria-current="true"] { background:var(--terra); transform:scale(1.3); }
     dialog.viewer { width:min(92vw,850px); max-height:92vh; padding:50px 16px 16px; border:0; border-radius:7px; background:var(--paper); }
     dialog.viewer::backdrop { background:#1d1613df; }
     dialog.viewer img { max-height:78vh; max-width:100%; margin:auto; object-fit:contain; }
@@ -156,9 +162,9 @@
       .countdown span { font-size:9px; }
       .timeline li { padding-right:18px; }
       .timeline li:nth-child(even) { padding-left:18px; }
-      .gallery-open img { height:135px; }
-      .outfit { height:110px; }
-      .outfit svg { width:62px; }
+      .carousel-control { width:36px; height:40px; font-size:30px; }
+      .carousel-control.prev { left:7px; }
+      .carousel-control.next { right:7px; }
     }
     @media(prefers-reduced-motion:reduce) {
       html { scroll-behavior:auto; }
@@ -180,7 +186,7 @@
         <div class="hero-photo-inner" id="portada-marco"><img id="foto-portada" alt="Noemi y Jonathan" decoding="async" fetchpriority="high"></div>
       </figure>
       <p class="eyebrow date-mini">06 · 12 · 2026</p>
-      <div class="music-bar"><button class="music-button" id="music-toggle" type="button" hidden aria-label="Reproducir música">♫ &nbsp;<span id="music-label">Escuchar música</span></button><audio id="music-player" loop preload="none"></audio></div>
+      <div class="music-bar"><button class="music-button" id="music-toggle" type="button" hidden aria-label="Reproducir música">♫ &nbsp;<span id="music-label">Escuchar música</span></button><audio id="music-player" loop autoplay preload="auto"></audio></div>
     </div>
   </header>
 
@@ -242,10 +248,8 @@
   <section class="section dress">
     <p class="eyebrow">Detalles de nuestro gran día</p>
     <h2>Código de vestimenta</h2>
-    <div class="dress-art" aria-label="Vestido largo, traje típico guatemalteco elegante y traje formal">
-      <div class="outfit terra"><svg viewBox="0 0 80 95" aria-hidden="true"><path d="M31 7h18l6 17-7 13 22 50H10l22-50-7-13z"/><path d="M31 7L26 22l11 9M49 7l5 15-11 9M30 41h20M21 67h38"/></svg></div>
-      <div class="outfit gold"><svg viewBox="0 0 80 95" aria-hidden="true"><path d="M25 13l12-7 5 0 13 7 13 21-12 10-7-11v12H30V33l-6 11-12-10z"/><path d="M30 45h20l13 42H17zM28 21h24M26 30h27M24 67h32M21 78h38"/><path d="M39 21v24m-18 10h37"/></svg></div>
-      <div class="outfit"><svg viewBox="0 0 80 95" aria-hidden="true"><path d="M27 9l11-5 11 5 16 11-7 31-9-6 2 42H24l2-42-9 6-7-31z"/><path d="M27 9l11 17 11-17M38 26l-7 16 7 6 7-6zM31 42l7 6 7-6M24 58h27"/></svg></div>
+    <div class="dress-art">
+      <img src="Vestimenta.png" alt="Vestido formal largo, traje típico guatemalteco elegante y traje negro para caballeros" loading="lazy" decoding="async">
     </div>
     <p>Les invitamos a lucir su mejor atuendo formal: vestido elegante, traje típico guatemalteco elegante o traje formal.</p>
     <p class="dress-note">Agradecemos reservar para la novia el <strong>blanco, dorado y los tonos muy similares.</strong></p>
@@ -270,8 +274,20 @@
   <section class="section gallery" id="galeria">
     <p class="eyebrow">Nuestros recuerdos</p>
     <h2>Más momentos juntos</h2>
-    <p>Toca una fotografía para verla más grande.</p>
-    <div class="gallery-grid" id="gallery-grid"></div>
+    <p>Desliza para ver nuestras fotografías o toca una para ampliarla.</p>
+    <div class="carousel" id="carousel" role="region" aria-roledescription="carrusel" aria-label="Fotografías de Noemi y Jonathan">
+      <div class="carousel-stage" id="carousel-stage">
+        <button class="carousel-open" id="carousel-open" type="button" aria-label="Ampliar fotografía actual">
+          <img id="carousel-image" alt="" loading="lazy" decoding="async">
+        </button>
+        <button class="carousel-control prev" id="carousel-prev" type="button" aria-label="Fotografía anterior">‹</button>
+        <button class="carousel-control next" id="carousel-next" type="button" aria-label="Fotografía siguiente">›</button>
+      </div>
+      <div class="carousel-footer">
+        <p class="carousel-count" id="carousel-count" aria-live="polite">1 / 1</p>
+        <div class="carousel-dots" id="carousel-dots" aria-label="Elegir fotografía"></div>
+      </div>
+    </div>
   </section>
 
   <footer class="closing">
@@ -302,14 +318,17 @@
     fechaLimite: '12 de noviembre de 2026',
     personasInvitadas: 2,
     googleForms: 'https://docs.google.com/forms/d/e/1FAIpQLSdiTdFTgH4vEgyehPbJSh7QM8rCpmZxaWu-dR5mRFKTBkMeHA/viewform?usp=publish-editor',
-    fotoPortada: 'imagenes/portada.jpg',
-    fotoPanoramica: 'imagenes/pareja.jpg',
+    // Todos estos archivos ya existen en la raíz del repositorio.
+    fotoPortada: 'DSC05098.jpg',
+    fotoPanoramica: 'DSC05138.jpg',
     fotosGaleria: [
-      'imagenes/galeria-1.jpg',
-      'imagenes/galeria-2.jpg',
-      'imagenes/galeria-3.jpg'
+      'DSC05157.jpg', 'DSC05159.jpg', 'DSC05173.jpg',
+      'DSC05205.jpg', 'DSC05279.jpg', 'DSC05313.jpg',
+      'DSC05339.jpg', 'DSC05394.jpg', 'DSC05504.jpg',
+      'DSC05591.jpg', 'DSC05627.jpg', 'DSC05642.jpg',
+      'DSC05098.jpg', 'DSC05138.jpg'
     ],
-    musica: 'musica.mp3' // Opcional: coloca este archivo junto a index.html
+    musica: 'nueva_cancion.mp3' 
   };
 
   // Inserta lugar, ruta y enlace al formulario.
@@ -345,44 +364,129 @@
   establecerFoto(CONFIG.fotoPortada,'foto-portada','portada-marco');
   establecerFoto(CONFIG.fotoPanoramica,'foto-panoramica','foto-panoramica-marco');
 
-  // Galería opcional (solo se muestran fotos que realmente estén subidas).
-  const gallery = byId('galeria'), grid = byId('gallery-grid');
-  const viewer = byId('viewer'), viewerImage = byId('viewer-image');
-  CONFIG.fotosGaleria.forEach((ruta, indice) => {
-    const foto = new Image();
-    foto.alt = 'Recuerdo de Noemi y Jonathan, fotografía ' + (indice+1);
-    foto.loading = 'eager'; // Para precargar antes de agregarla al documento.
-    foto.addEventListener('load',() => {
-      const boton = document.createElement('button');
-      boton.type = 'button'; boton.className='gallery-open';
-      boton.setAttribute('aria-label','Ampliar fotografía '+(indice+1));
-      boton.appendChild(foto);
-      boton.addEventListener('click',() => {
-        if (typeof viewer.showModal === 'function') {
-          viewerImage.src=foto.src; viewerImage.alt=foto.alt; viewer.showModal();
-        } else { window.open(foto.src,'_blank','noopener'); }
-      });
-      grid.appendChild(boton); gallery.classList.add('has-photos');
-    },{once:true});
-    foto.src = ruta;
-  });
-  byId('close-viewer').addEventListener('click',()=>viewer.close());
-  viewer.addEventListener('click',ev=>{ if(ev.target===viewer) viewer.close(); });
+  // Carrusel: flechas, puntos, desplazamiento táctil, teclado y avance automático.
+  const gallery = byId('galeria');
+  const viewer = byId('viewer');
+  const viewerImage = byId('viewer-image');
+  const carouselImage = byId('carousel-image');
+  const slides = CONFIG.fotosGaleria.filter(Boolean);
+  let slideActual = 0;
+  let temporizador = null;
+  const movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dots = [];
 
-  // Música opcional: los navegadores normalmente NO permiten reproducción automática.
-  // La música se activa únicamente al pulsar el botón, y el botón aparece si hay archivo.
-  const audio = byId('music-player'), musicButton = byId('music-toggle'), musicLabel=byId('music-label');
-  if(CONFIG.musica) {
-    audio.src = CONFIG.musica;
-    audio.addEventListener('canplay',()=>{ musicButton.hidden=false; },{once:true});
-    audio.addEventListener('error',()=>{ musicButton.hidden=true; });
-    audio.load();
-    musicButton.addEventListener('click',async()=>{
-      try { if(audio.paused) await audio.play(); else audio.pause(); }
-      catch(e) { musicLabel.textContent='No se pudo reproducir'; }
+  function detenerCarrusel() {
+    if (temporizador) clearInterval(temporizador);
+    temporizador = null;
+  }
+  function activarCarrusel() {
+    detenerCarrusel();
+    if (slides.length > 1 && !movimientoReducido && !document.hidden && !viewer.open) {
+      temporizador = setInterval(() => mostrarFoto(slideActual + 1), 5500);
+    }
+  }
+  function mostrarFoto(indice) {
+    if (!slides.length) return;
+    slideActual = (indice + slides.length) % slides.length;
+    const ruta = slides[slideActual];
+    carouselImage.src = ruta;
+    carouselImage.alt = `Recuerdo de Noemi y Jonathan, fotografía ${slideActual + 1} de ${slides.length}`;
+    byId('carousel-count').textContent = `${slideActual + 1} / ${slides.length}`;
+    dots.forEach((punto, i) => punto.setAttribute('aria-current', String(i === slideActual)));
+    // Prepara solo la próxima foto, no todas las imágenes pesadas a la vez.
+    if (slides.length > 1) {
+      const siguiente = new Image();
+      siguiente.src = slides[(slideActual + 1) % slides.length];
+    }
+  }
+  function cambiarFoto(salto) { mostrarFoto(slideActual + salto); activarCarrusel(); }
+  if (slides.length) {
+    gallery.classList.add('has-photos');
+    slides.forEach((_, i) => {
+      const punto = document.createElement('button');
+      punto.type = 'button';
+      punto.className = 'carousel-dot';
+      punto.setAttribute('aria-label', `Ver fotografía ${i + 1}`);
+      punto.addEventListener('click', () => { mostrarFoto(i); activarCarrusel(); });
+      byId('carousel-dots').appendChild(punto);
+      dots.push(punto);
     });
-    audio.addEventListener('play',()=>{ musicLabel.textContent='Pausar música';musicButton.setAttribute('aria-label','Pausar música'); });
-    audio.addEventListener('pause',()=>{ musicLabel.textContent='Escuchar música';musicButton.setAttribute('aria-label','Reproducir música'); });
+    mostrarFoto(0);
+    activarCarrusel();
+    byId('carousel-prev').addEventListener('click', () => cambiarFoto(-1));
+    byId('carousel-next').addEventListener('click', () => cambiarFoto(1));
+    byId('carousel-open').addEventListener('click', () => {
+      detenerCarrusel();
+      viewerImage.src = slides[slideActual];
+      viewerImage.alt = carouselImage.alt;
+      if (typeof viewer.showModal === 'function') viewer.showModal();
+      else window.open(slides[slideActual], '_blank', 'noopener');
+    });
+    let inicioX = null;
+    const zona = byId('carousel-stage');
+    zona.addEventListener('touchstart', e => { inicioX = e.touches[0].clientX; }, {passive:true});
+    zona.addEventListener('touchend', e => {
+      if (inicioX === null) return;
+      const delta = e.changedTouches[0].clientX - inicioX;
+      inicioX = null;
+      if (Math.abs(delta) > 45) cambiarFoto(delta < 0 ? 1 : -1);
+    }, {passive:true});
+    zona.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        cambiarFoto(e.key === 'ArrowRight' ? 1 : -1);
+      }
+    });
+    document.addEventListener('visibilitychange', activarCarrusel);
+    byId('carousel').addEventListener('mouseenter', detenerCarrusel);
+    byId('carousel').addEventListener('mouseleave', activarCarrusel);
+  }
+  function cerrarVisor() { viewer.close(); activarCarrusel(); }
+  byId('close-viewer').addEventListener('click', cerrarVisor);
+  viewer.addEventListener('click', e => { if (e.target === viewer) cerrarVisor(); });
+  viewer.addEventListener('close', activarCarrusel);
+
+  // Intentamos iniciar la canción de forma automática al abrir la invitación.
+  // En muchos navegadores el audio con sonido necesita al menos un toque del usuario.
+  const audio = byId('music-player');
+  const musicButton = byId('music-toggle');
+  const musicLabel = byId('music-label');
+  if (CONFIG.musica) {
+    audio.src = CONFIG.musica;
+    audio.loop = true;
+    audio.volume = 0.8;
+    musicButton.hidden = false;
+    function actualizarBotonMusica() {
+      const sonando = !audio.paused;
+      musicLabel.textContent = sonando ? 'Pausar música' : 'Escuchar música';
+      musicButton.setAttribute('aria-label', sonando ? 'Pausar música' : 'Reproducir música');
+    }
+    async function intentarMusica() {
+      if (!audio.paused) return true;
+      try { await audio.play(); return true; }
+      catch (e) { musicLabel.textContent = 'Toca para activar música'; return false; }
+    }
+    musicButton.addEventListener('click', async () => {
+      if (audio.paused) await intentarMusica();
+      else audio.pause();
+    });
+    audio.addEventListener('play', actualizarBotonMusica);
+    audio.addEventListener('pause', actualizarBotonMusica);
+    audio.addEventListener('error', () => {
+      musicLabel.textContent = 'Música no disponible';
+      musicButton.disabled = true;
+    });
+    // Si el navegador la bloqueó al cargar, el primer toque puede desbloquearla.
+    const iniciarConPrimerToque = event => {
+      if (event.target.closest('#music-toggle')) return;
+      if (audio.paused) intentarMusica();
+    };
+    document.addEventListener('pointerdown', iniciarConPrimerToque, {capture:true});
+    document.addEventListener('keydown', e => {
+      if (!e.target.closest('#music-toggle') && audio.paused) intentarMusica();
+    });
+    intentarMusica();
+    window.addEventListener('load', intentarMusica, {once:true});
   }
 
   // Transiciones suaves respetando la preferencia de accesibilidad.
